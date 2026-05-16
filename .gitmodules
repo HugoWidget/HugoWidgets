@@ -1,0 +1,9 @@
+[submodule "deps/HugoUtils"]
+	path = deps/HugoUtils
+	url = https://github.com/HugoWidget/HugoUtils
+[submodule "deps/WECore"]
+	path = deps/WECore
+	url = https://github.com/howdy213/WECore
+[submodule "deps/qlementine"]
+	path = deps/qlementine
+	url = https://github.com/oclero/qlementine

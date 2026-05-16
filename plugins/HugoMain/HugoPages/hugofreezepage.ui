@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HugoFreezePage</class>
+ <widget class="QWidget" name="HugoFreezePage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="12" column="4">
+    <widget class="QLabel" name="m_labelTimeStamp">
+     <property name="text">
+      <string>00:00:00</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1" rowspan="3" colspan="12">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="2" column="2">
+      <widget class="QPushButton" name="m_btnSet">
+       <property name="text">
+        <string>设置冰点盘</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="m_btnRefresh">
+       <property name="text">
+        <string>刷新查询</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="m_btnTry">
+       <property name="text">
+        <string>尝试冻结</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="4">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1" colspan="12">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="2">
+      <widget class="QComboBox" name="m_comboFreezeMode"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="m_labelFreezeMode">
+       <property name="text">
+        <string>冰点引擎模式</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="m_labelTitle">
+       <property name="text">
+        <string>希沃冰点管理</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="12" column="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>信息</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" rowspan="2" colspan="12">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>5</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QGridLayout" name="m_layoutDisks"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="12" column="3">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="12" column="5" colspan="8">
+    <widget class="QLabel" name="m_labelMessage">
+     <property name="text">
+      <string>message</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icon/arrow.jpg</file>
+        <file>icon/we_tp.ico</file>
+        <file>icon/we.png</file>
+        <file>icon/we.ico</file>
+    </qresource>
+</RCC>
