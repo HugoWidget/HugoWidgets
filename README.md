@@ -10,6 +10,10 @@
 
 Qt6
 
+## 编译
+
+特别地，需要将 `HugoString.h` 转为UTF-8编码才能被 Qt 识别
+
 ## 功能
 
 与HugoProgs类似，但提供更友好的操作方式，并内置开机自启，修改配置等功能
@@ -17,7 +21,7 @@ Qt6
 ## 项目组成
 
 - HugoMain：该项目主界面，依赖于HugoWidgets实行功能
-- HugoWidgets：独立于HugoMain，以命令行方式交互
+- HugoWidgetsPlugin：独立于HugoMain，提供各种功能
 
 ## 免责声明
 

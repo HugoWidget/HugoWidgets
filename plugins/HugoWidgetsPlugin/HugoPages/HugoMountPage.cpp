@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
  */
+#include "HugoUtils/HMount.h"
+
 #include "hugomountpage.h"
 #include "ui_hugomountpage.h"
 static auto g_hMount = new HMount;
