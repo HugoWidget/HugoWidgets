@@ -1,12 +1,27 @@
-// hugomainwidget.cpp
+/*
+ * Copyright 2025-2026 howdy213, JYardX
+ *
+ * This file is part of HugoProgs.
+ *
+ * HugoProgs is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * HugoProgs is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
+ */
 #include "hugomainwidget.h"
 #include "WECore/plugin/wplugin.h"
 #include "WECore/plugin/wplugindata.h"
 
-#include "HugoPages/HugoFreezePage.h"
-#include "HugoPages/hugomountpage.h"
-
 #include "Shared/flowlayout.h"
+#include "WECore/plugin/wpluginmanager.h"
 #include "WECore/widget/wwidgetmanager.h"
 #include <QAction>
 #include <QCoreApplication>
@@ -25,6 +40,7 @@ using namespace we::Consts;
 
 HugoMainWidget::HugoMainWidget(WEBase *base, QWidget *parent)
     : QWidget(parent) {
+
     QStringList args = QCoreApplication::arguments();
     for (const QString &arg : std::as_const(args)) {
         if (arg == "--no-gui") {
@@ -33,9 +49,29 @@ HugoMainWidget::HugoMainWidget(WEBase *base, QWidget *parent)
             break;
         }
     }
+    auto createPage = [this](FunctionPageBase *funcpage) {
+        m_allPagesById[funcpage->id()] = funcpage;
+        funcpage->init();
+    };
+    auto initPlugin = [&]() {
+        auto man = PClass->pluginManager();
+        auto insts = man->allPluginsInst();
+        foreach (auto inst, insts) {
+            if (inst == PPlugin)
+                continue;
+            if (!man->loadPlugin(inst))
+                continue;
+            man->initPlugin(inst);
+        }
+    };
+    auto wmgr = PClass->widgetManager();
 
-    createAllFunctionPages();
-
+    // Subscribe to extension topics
+    SubscribeFunc func = [&](const WEvent &ev) {
+        createPage((FunctionPageBase *)ev.msg.object);
+    };
+    wmgr->subscribe("hugo.hugowidget.hugowidgets.addpage", this, func);
+    initPlugin();
     if (!noGui) {
         mainWindow = new QMainWindow();
         mainWindow->setWindowTitle("HugoWidgets");
@@ -68,8 +104,15 @@ void HugoMainWidget::createMenuBar() {
 
     QMenu *helpMenu = menuBar->addMenu("帮助");
     QAction *aboutAction = helpMenu->addAction("关于");
-    connect(aboutAction, &QAction::triggered,
-            []() { QMessageBox::about(nullptr, "关于", "HugoMain Plugin"); });
+    connect(aboutAction, &QAction::triggered, []() {
+        QMessageBox::about(nullptr, "关于",
+                           "HugoWidgets\n"
+                           "希沃增强与补充工具\n"
+                           "源代码仓库:https://github.com/HugoWidget/HugoWidgets\n"
+                           "Copyright © 2026 HugoWidget\n"
+                           "All rights reserved\n"
+                           "GPLv3 许可证");
+    });
 }
 
 void HugoMainWidget::createCentralWidget() {
@@ -156,15 +199,6 @@ void HugoMainWidget::onTabCloseRequested(int tabIndex) {
             break;
         }
     }
-}
-
-void HugoMainWidget::createAllFunctionPages() {
-    auto createPage = [this](FunctionPageBase *funcpage) {
-        m_allPagesById[funcpage->id()] = funcpage;
-        funcpage->init();
-    };
-    createPage(new HugoFreezePage);
-    createPage(new HugoMountPage);
 }
 
 FunctionPageBase *

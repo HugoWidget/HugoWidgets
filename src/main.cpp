@@ -25,13 +25,13 @@
 #include "WECore/metadata/WMetaDocument.h"
 #include "WECore/we/we.h"
 
+#include "Qlementine/lib/include/oclero/qlementine.hpp"
 #include <QApplication>
 #include <QLockFile>
 #include <QMenu>
 #include <QMessageBox>
 #include <QStyleFactory>
 #include <QSystemTrayIcon>
-#include "Qlementine/lib/include/oclero/qlementine.hpp"
 using namespace we::Consts;
 using namespace we;
 
@@ -60,8 +60,8 @@ int main(int argc, char *argv[]) {
     }
 
     QApplication a(argc, argv);
-    // auto* style=new oclero::qlementine::QlementineStyle(&a);
-    // a.setStyle(style);
+    auto *style = new oclero::qlementine::QlementineStyle(&a);
+    a.setStyle(style);
     a.setWindowIcon(QIcon(":/icons/icon/we.png"));
     // a.setQuitOnLastWindowClosed(false);
 

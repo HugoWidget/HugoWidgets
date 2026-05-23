@@ -1,12 +1,31 @@
-#ifndef HUGO_MAIN_WIDGET_H
-#define HUGO_MAIN_WIDGET_H
+/*
+ * Copyright 2025-2026 howdy213, JYardX
+ *
+ * This file is part of HugoProgs.
+ *
+ * HugoProgs is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * HugoProgs is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
+ */
+#ifndef HUGOMAINWIDGET_H
+#define HUGOMAINWIDGET_H
 
-#include "WECore/plugin/wplugindata.h"
-#include "functionpagebase.h"
+#include "WECore/we/webase.h"
 #include <QMainWindow>
 #include <QMap>
 #include <QSet>
 #include <QVariantMap>
+
+#include "functionpagebase.h"
 
 class QTabWidget;
 class QMenuBar;
@@ -18,9 +37,7 @@ public:
     explicit HugoMainWidget(we::WEBase *base = nullptr,
                             QWidget *parent = nullptr);
     ~HugoMainWidget();
-
     virtual void initWidget();
-
     bool executeCommand(const QString &functionId, const QString &command,
                         const QVariantMap &args = QVariantMap());
 
@@ -33,7 +50,6 @@ private:
     void createMenuBar();
     void createCentralWidget();
     void addHomePage();
-    void createAllFunctionPages();
     FunctionPageBase *openFunctionPageById(const QString &functionId);
 
 private:
@@ -45,4 +61,4 @@ private:
     bool noGui = false;
 };
 
-#endif
+#endif // HUGOMAINWIDGET_H

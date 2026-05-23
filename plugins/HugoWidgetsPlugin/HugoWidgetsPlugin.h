@@ -16,34 +16,29 @@
  * You should have received a copy of the GNU General Public License
  * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef HUGO_MAIN_PLUGIN_H
-#define HUGO_MAIN_PLUGIN_H
+#ifndef HUGOWIDGETSPLUGIN_H
+#define HUGOWIDGETSPLUGIN_H
 
 #include "WECore/plugin/wplugininterface.h"
+
 #include <QObject>
 #include <QtPlugin>
 
-class HugoMainWidget;
-
-class HugoMainPlugin : public QObject, public WPluginInterface
-{
+/**
+ * @class HugoWidgetsPlugin
+ * @brief An hugowidgets plugin class that demonstrates how to extend the application.
+ */
+class HugoWidgetsPlugin : public QObject, public WPluginInterface {
+public:
     Q_OBJECT
     Q_PLUGIN_METADATA(IID WPluginInterface_iid)
     Q_INTERFACES(WPluginInterface)
-
-signals:
-    void sendMsg(we::WMessage &);
-
 public:
-    HugoMainPlugin();
-    ~HugoMainPlugin();
-
+    HugoWidgetsPlugin();
+    ~HugoWidgetsPlugin();
     bool init(we::WMessage &msg) override;
     void recMsg(we::WMessage &msg) override;
-    bool deinit(we::WMessage &msg) override;
-
-private:
-    HugoMainWidget *widget = nullptr;
+    virtual bool deinit(we::WMessage &msg) override;
 };
 
-#endif // HUGO_MAIN_PLUGIN_H
+#endif // HUGOWIDGETSPLUGIN_H

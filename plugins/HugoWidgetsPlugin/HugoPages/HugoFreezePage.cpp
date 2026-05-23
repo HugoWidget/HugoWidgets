@@ -1,6 +1,24 @@
+/*
+ * Copyright 2025-2026 howdy213, JYardX
+ *
+ * This file is part of HugoProgs.
+ *
+ * HugoProgs is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * HugoProgs is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
+ */
 #include "hugofreezepage.h"
 #include "HugoPages/HFreezeNone.h"
-#include "HugoPages/hfreezeapiex.h"
+#include "HugoPages/HFreezeApiEx.h"
 #include "ui_hugofreezepage.h"
 #include <QMessageBox>
 #include <QPushButton>
@@ -12,9 +30,9 @@ HFreezeNone *HugoFreezePage::m_freezeNone = nullptr;
 HugoFreezePage::HugoFreezePage(QWidget *parent)
     : FunctionPageBase(parent), ui(new Ui::HugoFreezePage) {
     ui->setupUi(this);
-    ui->m_comboFreezeMode->addItems({"None", "Api", "Driver"});
     connect(ui->m_comboFreezeMode, &QComboBox::currentTextChanged, this,
             &HugoFreezePage::onComboFreezeModeCurrentTextChanged);
+    ui->m_comboFreezeMode->addItems({"None", "Api", "Driver"});
 
     const auto diskList = QStorageInfo::mountedVolumes();
     int validDiskCount = 0;
@@ -37,27 +55,24 @@ HugoFreezePage::HugoFreezePage(QWidget *parent)
         btn->setStatus(DriveFreezeState::Unknown);
 
         connect(btn, &QDiskButton::checkStateChanged, this, [this]() {
-            auto *clickedBtn = qobject_cast<QDiskButton *>(sender());
-            if (!clickedBtn)
-                return;
+            QDiskButton *btn = qobject_cast<QDiskButton *>(sender());
 
-            const bool isChecked = clickedBtn->isChecked();
-            const wchar_t letter = clickedBtn->getDriveLetter();
-
-            if (letter == L'C') {
-                if (!isChecked) {
-                    clickedBtn->setChecked(true);
-                }
-                return;
-            }
-            if (isChecked) {
-                for (auto *otherBtn : m_diskBtns) {
-                    if (otherBtn->getDriveLetter() == L'C') {
-                        if (!otherBtn->isChecked())
-                            otherBtn->setChecked(true);
-                        break;
+            if (btn->getDriveLetter() == L'C') {
+                if (btn->isChecked())
+                    return;
+                else {
+                    for (auto *btn2 : std::as_const(m_diskBtns)) {
+                        if (btn2->getDriveLetter() != L'C')
+                            btn2->setChecked(false);
                     }
+                    return;
                 }
+            }
+            if (!btn->isChecked())
+                return;
+            for (auto *btn2 : std::as_const(m_diskBtns)) {
+                if (btn2->getDriveLetter() == L'C')
+                    btn2->setChecked(true);
             }
         });
         ui->m_layoutDisks->addWidget(btn, validDiskCount / 3, validDiskCount % 3);

@@ -16,36 +16,40 @@
  * You should have received a copy of the GNU General Public License
  * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef FUNCTIONPAGEBASE_H
-#define FUNCTIONPAGEBASE_H
+#ifndef HUGOMOUNTPAGE_H
+#define HUGOMOUNTPAGE_H
 
-#include <QWidget>
+#include "../HugoMain/functionpagebase.h"
 #include <QString>
-#include <QVariantMap>
+#include <QWidget>
+namespace Ui {
+class HugoMountPage;
+}
 
-class FunctionPageBase : public QWidget
-{
+class HugoMountPage : public FunctionPageBase {
     Q_OBJECT
-public:
-    explicit FunctionPageBase(QWidget *parent = nullptr) : QWidget(parent) {}
-    virtual ~FunctionPageBase() {}
 
+public:
+    explicit HugoMountPage(QWidget *parent = nullptr);
+    ~HugoMountPage();
     virtual void init() {}
     virtual void cleanup() {}
 
-    virtual QString id() const = 0;
-    virtual QString name() const = 0;
+    virtual QString id() const;
+    virtual QString name() const;
 
-    virtual bool handleCommand(const QString& command, const QVariantMap& args = QVariantMap()) = 0;
+    virtual bool handleCommand(const QString &command,
+                               const QVariantMap &args = QVariantMap());
 
-    static void setNoGuiMode(bool mode) { s_noGuiMode = mode; }
-    static bool noGuiMode() { return s_noGuiMode; }
-
-signals:
-    void closeRequested();
+private slots:
+    void on_m_btnQuery_clicked();
+    void on_m_btnMount_clicked();
+    void on_pushButton_clicked();
+    void on_m_btnUnmount_clicked();
 
 private:
-    static inline bool s_noGuiMode = false;
+    Ui::HugoMountPage *ui;
+    void queryAndRefresh();
 };
-Q_DECLARE_METATYPE(FunctionPageBase*)
-#endif // FUNCTIONPAGEBASE_H
+
+#endif // HUGOMOUNTPAGE_H
