@@ -20,7 +20,7 @@
 #include "WECore/plugin/wplugin.h"
 #include "WECore/plugin/wplugindata.h"
 
-#include "Shared/flowlayout.h"
+#include "WECore/utils/flowlayout.h"
 #include "WECore/plugin/wpluginmanager.h"
 #include "WECore/widget/wwidgetmanager.h"
 #include <QAction>

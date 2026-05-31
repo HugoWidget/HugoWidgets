@@ -55,6 +55,7 @@ HugoFreezePage::HugoFreezePage(QWidget *parent)
         btn->setStatus(DriveFreezeState::Unknown);
 
         connect(btn, &QDiskButton::checkStateChanged, this, [this]() {
+            if(ui->m_checkFreeze->isChecked())return;
             QDiskButton *btn = qobject_cast<QDiskButton *>(sender());
 
             if (btn->getDriveLetter() == L'C') {
@@ -102,16 +103,20 @@ void HugoFreezePage::onComboFreezeModeCurrentTextChanged(const QString &arg1) {
         if (!m_freezeApi) {
             m_freezeApi = new HFreezeApiEx;
         }
+        ui->m_checkFreeze->setChecked(false);
+        ui->m_checkFreeze->setEnabled(false);
         m_freeze = m_freezeApi;
     } else if (arg1 == "Driver") {
         if (!m_freezeDriver) {
             m_freezeDriver = &HFreezeDriver::Instance();
         }
+        ui->m_checkFreeze->setEnabled(true);
         m_freeze = m_freezeDriver;
     } else if (arg1 == "None") {
         if (!m_freezeNone) {
             m_freezeNone = new HFreezeNone;
         }
+        ui->m_checkFreeze->setEnabled(true);
         m_freeze = m_freezeNone;
     }
     if (m_freeze) {

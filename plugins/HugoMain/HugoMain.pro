@@ -19,7 +19,6 @@ LIBS += -luser32 -lshell32 -lversion -lws2_32
 
 include(../../deps/WECore/WECore.pri)
 include(../../deps/HugoUtils.pri)
-include(../../deps/Shared.pri)
 
 INCLUDEPATH += ../../deps/
 INCLUDEPATH += ../../deps/HugoUtils/include/
