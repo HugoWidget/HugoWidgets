@@ -111,20 +111,20 @@ void HugoProtectPage::onDisableProtect()
 bool HugoProtectPage::executeProtectOperation(int operation)
 {
     if (operation != 0 && operation != 1) {
-        WLog(LogLevel::Error, L"无效操作参数");
+        WuLog::Log(LogLevel::Error, L"无效操作参数");
         return false;
     }
     HInfo info;
     auto driverPath = info.getHugoProtectDriverPath();
     if (!driverPath.has_value()) {
-        WLog(LogLevel::Error, L"未找到 DriverService.exe 路径");
+        WuLog::Log(LogLevel::Error, L"未找到 DriverService.exe 路径");
         return false;
     }
     const wstring opDesc = operation ? L"开启" : L"关闭";
     const wstring opCmd = operation ? L"install" : L"uninstall";
-    WLog(LogLevel::Info, format(L"[执行{}] DriverService 路径：{}", opDesc, driverPath.value().wstring()));
+    WuLog::Log(LogLevel::Info, format(L"[执行{}] DriverService 路径：{}", opDesc, driverPath.value().wstring()));
     bool success = RunExternalProgram(*driverPath, L"runas", opCmd, *driverPath,0);
-    WLog(success ? LogLevel::Info : LogLevel::Error,
+    WuLog::Log(success ? LogLevel::Info : LogLevel::Error,
          format(L"{}操作{}！", opDesc, success ? L"成功" : L"失败"));
     return success;
 }
@@ -137,7 +137,7 @@ std::optional<int> HugoProtectPage::parseArgs(const QVariantMap& args)
     if (cmd == "-enable") return 1;
     if (cmd == "-disable") return 0;
 
-    WLog(LogLevel::Error, L"参数无效！");
+    WuLog::Log(LogLevel::Error, L"参数无效！");
     return nullopt;
 }
 
@@ -156,7 +156,7 @@ void HugoProtectPage::showInteractiveMenu()
         if (wcin.fail() || (choice != 0 && choice != 1)) {
             wcin.clear();
             wcin.ignore((numeric_limits<streamsize>::max)(), L'\n');
-            WLog(LogLevel::Error, L"输入无效");
+            WuLog::Log(LogLevel::Error, L"输入无效");
         } else break;
     }
 

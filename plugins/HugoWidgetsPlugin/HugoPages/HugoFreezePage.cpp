@@ -108,7 +108,7 @@ void HugoFreezePage::onComboFreezeModeCurrentTextChanged(const QString &arg1) {
         m_freeze = m_freezeApi;
     } else if (arg1 == "Driver") {
         if (!m_freezeDriver) {
-            m_freezeDriver = &HFreezeDriver::Instance();
+            m_freezeDriver = new HFreezeDriver;
         }
         ui->m_checkFreeze->setEnabled(true);
         m_freeze = m_freezeDriver;

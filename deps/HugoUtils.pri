@@ -3,9 +3,12 @@ SOURCES += \
     $$PWD/HugoUtils/src/HugoUtils/GPL3.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HFreezeApi.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HFreezeDriver.cpp \
+    $$PWD/HugoUtils/src/HugoUtils/HFreezeDriver_p.cpp \
+    $$PWD/HugoUtils/src/HugoUtils/HFreezeFile_p.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HFreezeInterface.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HInfo.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HInstaller.cpp \
+    $$PWD/HugoUtils/src/HugoUtils/HLock.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HMount.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HPassword.cpp \
     $$PWD/HugoUtils/src/HugoUtils/HugoUtils.cpp \
@@ -52,6 +55,7 @@ HEADERS += \
     $$PWD/HugoUtils/include/WinUtils/Injector.h \
     $$PWD/HugoUtils/include/WinUtils/Logger.h \
     $$PWD/HugoUtils/include/WinUtils/StrConvert.h \
+    $$PWD/HugoUtils/include/WinUtils/WinIPC.h \
     $$PWD/HugoUtils/include/WinUtils/WinPch.h \
     $$PWD/HugoUtils/include/WinUtils/WinReg.h \
     $$PWD/HugoUtils/include/WinUtils/WinSvcMgr.h \

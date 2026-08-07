@@ -17,9 +17,17 @@
  * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
  */
 #include "HugoUtils/HMount.h"
+#include "WECore/plugin/wplugin.h"
+#include "WECore/plugin/wplugindata.h"
+#include "WinUtils/WinUtils.h"
 
 #include "hugomountpage.h"
+#include <QDir>
 #include "ui_hugomountpage.h"
+using namespace we;
+using namespace WinUtils;
+using namespace Consts;
+using namespace std;
 static auto g_hMount = new HMount;
 
 HugoMountPage::HugoMountPage(QWidget *parent)
@@ -125,7 +133,10 @@ void HugoMountPage::on_m_btnMount_clicked() {
 }
 
 void HugoMountPage::on_pushButton_clicked() {
-    ShellExecuteA(0, "runas", "PyExplorer.exe", "", "", 0);
+    QDir path = PPlugin->getMetaData(Plugin::Path).toString();
+    path.cdUp();
+    QString filePath = path.absoluteFilePath("tools/PyExplorer.exe");
+    RunExternalProgram(filePath.toStdWString());
 }
 
 void HugoMountPage::on_m_btnUnmount_clicked() {

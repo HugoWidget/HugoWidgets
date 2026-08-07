@@ -1,5 +1,5 @@
 QT += core gui widgets qml
-CONFIG += c++20
+CONFIG += c++2b
 RC_ICONS = icon/we_tp.ico
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/release/ -lwecore

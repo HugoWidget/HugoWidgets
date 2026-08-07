@@ -17,12 +17,17 @@
  * along with HugoProgs. If not, see <https://www.gnu.org/licenses/>.
  */
 #include "hugomainwidget.h"
+#include "WECore/config/WConfigWidget.h"
+#include "WECore/file/wpath.h"
 #include "WECore/plugin/wplugin.h"
 #include "WECore/plugin/wplugindata.h"
 
-#include "WECore/utils/flowlayout.h"
+#include "WECore/metadata/wmetadocument.h"
 #include "WECore/plugin/wpluginmanager.h"
+#include "WECore/utils/flowlayout.h"
+#include "WECore/we/we.h"
 #include "WECore/widget/wwidgetmanager.h"
+#include "WEcore/config/WConfig.h"
 #include <QAction>
 #include <QCoreApplication>
 #include <QLabel>
@@ -37,6 +42,7 @@
 #include <QWidget>
 using namespace we;
 using namespace we::Consts;
+using namespace we::config;
 
 HugoMainWidget::HugoMainWidget(WEBase *base, QWidget *parent)
     : QWidget(parent) {
@@ -104,6 +110,7 @@ void HugoMainWidget::createMenuBar() {
 
     QMenu *helpMenu = menuBar->addMenu("帮助");
     QAction *aboutAction = helpMenu->addAction("关于");
+    QAction *settingsAction = helpMenu->addAction("设置");
     connect(aboutAction, &QAction::triggered, []() {
         QMessageBox::about(nullptr, "关于",
                            "HugoWidgets\n"
@@ -112,6 +119,43 @@ void HugoMainWidget::createMenuBar() {
                            "Copyright © 2026 HugoWidget\n"
                            "All rights reserved\n"
                            "GPLv3 许可证");
+    });
+    connect(settingsAction, &QAction::triggered, [this]() {
+        static WConfig *config = new WConfig;
+        if (!config) {
+            qWarning() << "Failed to get WConfig instance.";
+            return;
+        }
+        WConfigTemplate configTemplate;
+        QString mainWidget = WE::inst()
+                                 ->getWEClass()
+                                 ->configManager()
+                                 ->get(Plugin::MainWidget)
+                                 .toString();
+        configTemplate.addDouble(
+            "", "Scale",
+            WConfigItemInfo().defaultValue(1.0).decimalPlaces(1).displayName(
+                "缩放"));
+        configTemplate.addInt(
+            "", "Font", WConfigItemInfo().defaultValue(96).displayName("字体缩放"));
+        configTemplate.addAction(
+            "Info", "Info",
+            WConfigItemInfo().displayName("说明").callback(
+                [this]() {
+                QMessageBox::information(
+                    this, "提示",
+                    "有关 HugoWidgets 希沃功能设置暂未开发，现仅有基础设置。");
+            }));
+        configTemplate.setViewerMeta("", "设置", "设置根目录");
+        configTemplate.setViewerMeta("Info", "更多", "更多");
+        config->initialize(WPath().getModuleFolder() + Config::ConfigPath,
+                           &configTemplate);
+        // Create a new config widget for the settings
+        static WConfigWidget *settingsWidget = new WConfigWidget(config, this);
+        settingsWidget->setWindowTitle("Settings");
+        settingsWidget->resize(600, 400);
+        settingsWidget->show();
+        config->setParent(this);
     });
 }
 

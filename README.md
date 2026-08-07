@@ -18,6 +18,7 @@ Qt6
 
 - HugoMain：该项目主界面，依赖于HugoWidgets实行功能
 - HugoWidgetsPlugin：独立于HugoMain，提供各种功能
+- 集成了`WEcore`项目框架，你可以开发自己的插件，为项目添加功能
 
 ## 免责声明
 
@@ -41,6 +42,8 @@ WidgetExplorer: [Apache License 2.0](licenses/LICENSE-WidgetExplorer)
 
 Qlementine: [MIT 许可证](licenses/LICENSE-Qlementine)
 
+Qt: [LGPLv3 许可证](licenses/LICENSE.LESSER-Qt)
+
 WECore: [Apache License 2.0](licenses/LICENSE-WECore)
 
 HugoUtils: [LGPLv3 许可证](licenses/LICENSE.LESSER-HugoUtils)
@@ -57,3 +60,4 @@ mINI: [MIT 许可证](licenses/LICENSE-mINI)
 
 WinReg: [MIT 许可证](licenses/LICENSE-WinReg)
 
+libsharedmemory：[MIT 许可证](licenses/LICENSE-libsharedmemory)
