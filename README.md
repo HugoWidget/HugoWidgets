@@ -1,5 +1,11 @@
 # HugoWidgets
 
+> [!NOTE]
+>
+> 建议阅读 [HugoWidget 简介](https://github.com/HugoWidget/HugoWidget) 以了解开发情况
+
+若想进一步了解本项目，可阅读 [HugoWidgets 用户文档](docs/User.md) 与 [HugoWidgets 开发者文档](docs/Developer.md)
+
 ## 项目介绍
 
 帮助广大电教委对希沃功能进行增强与补充
@@ -12,17 +18,13 @@ Qt6
 
 ## 功能
 
-与HugoProgs类似，但提供更友好的操作方式，并内置开机自启，修改配置等功能
+与HugoProgs类似，但提供更友好的操作方式，并计划内置开机自启，修改配置等功能。
 
 ## 项目组成
 
 - HugoMain：该项目主界面，依赖于HugoWidgets实行功能
 - HugoWidgetsPlugin：独立于HugoMain，提供各种功能
 - 集成了`WEcore`项目框架，你可以开发自己的插件，为项目添加功能
-
-## 免责声明
-
-本项目仅用于研究或教育目的，请勿将本项目用于可能违反当地法律、侵犯著作权或其他软件 EULA 的用途。若将本项目用于非法用途，一切后果由使用者承担，开发者不承担此类行为带来的任何后果或责任。
 
 ## 项目依赖
 
@@ -61,3 +63,7 @@ mINI: [MIT 许可证](licenses/LICENSE-mINI)
 WinReg: [MIT 许可证](licenses/LICENSE-WinReg)
 
 libsharedmemory：[MIT 许可证](licenses/LICENSE-libsharedmemory)
+
+## 免责声明
+
+本项目仅用于研究或教育目的，请勿将本项目用于可能违反当地法律、侵犯著作权或其他软件 EULA 的用途。若将本项目用于非法用途，一切后果由使用者承担，开发者不承担此类行为带来的任何后果或责任。
